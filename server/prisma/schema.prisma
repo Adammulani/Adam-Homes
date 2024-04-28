@@ -1,0 +1,38 @@
+generator client{
+    provider = "prisma-client-js"
+}
+
+datasource db{
+    provider = "mongodb"
+    url = env("DATABASE_URL")
+}
+model User{
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    //make a field with the name of id in the collection of user with the type String, it is id of mongodb generated automatically, giving representation _id
+    name String?
+    email String @unique  //identify each user by email
+    image String?
+    bookVisits Json[]
+    favResidenciesID String[] @db.ObjectId
+   ownedResidencies Residency[] @relation("Owner")
+    
+}
+model Residency{
+        id String @id @default(auto()) @map("_id") @db.ObjectId
+        title String
+        description String
+        price Int
+        address String
+        city String
+        country String
+        image String
+        facilities Json
+        userEmail String
+        owner User @relation("Owner",fields: [userEmail],references: [email])
+        createdAt DateTime @default(now())
+        updatedAt DateTime @updatedAt
+
+        @@unique(fields: [address,userEmail])
+
+}
+
