@@ -65,3 +65,21 @@ catch(err){
 }
 
 })
+
+
+//function to get all the bookings done by user
+export const getAllBookings=asyncHandler(async(req,res)=>{
+  const {email}=req.body;
+  try{
+     const bookings=await prisma.user.findUnique({
+      where:{email},
+      select:{bookVisits:true}    //only select booked visits field, not the whole document
+     })
+     res.status(200).send(bookings);
+
+  }
+  catch(error){
+    throw new Error(error.message);
+
+  }
+})
