@@ -1,6 +1,8 @@
 import asyncHandler from "express-async-handler";
 import { prisma } from "../config/prismaConfig.js";
 
+
+//create user/register user
 export const createUser = asyncHandler(async (req, res) => {
   console.log("creating a user");
 
@@ -30,3 +32,36 @@ export const createUser = asyncHandler(async (req, res) => {
   }
  
 });
+
+
+//function to book a visit to residency
+export const bookVisit=asyncHandler(async(req,res)=>{
+  const {email,date}=req.body
+  const {id}=req.params
+
+  try{
+      const alreadyBooked=await prisma.User.findUnique({
+          where:{email},
+          select:{bookVisits:true},        
+      })
+
+      if(alreadyBooked.bookVisits.some((visit)=>visit.id===id)){
+        res.status(400).json({message:" This residency is already booked by you"})
+      }
+      else{
+        await prisma.User.update({
+          where:{email:email},
+          data:{
+            bookVisits:{push:{id,date}}
+          }
+
+        })
+        res.send(" Your visit is booked successfully");
+      }
+     
+  }
+catch(err){
+  throw new Error(err.message)
+}
+
+})
