@@ -83,3 +83,39 @@ export const getAllBookings=asyncHandler(async(req,res)=>{
 
   }
 })
+
+//function to cancle the booking
+export const cancleBooking=asyncHandler(async(req,res)=>{
+  const {email}=req.body;
+  const {id}=req.params;
+
+  try{
+    //following line will return the bookVisits array
+    const user=await prisma.user.findUnique({
+      where:{email:email},
+      select:{bookVisits:true}
+    })
+
+    //now get the index of id in the bookVisits array
+    const index=user.bookVisits.findIndex((visit)=>visit.id===id)
+
+    if(index===-1){
+      res.status(404).json({message:"Booking not found"})
+    }
+    else{
+      user.bookVisits.splice(index,1)    //in user.bookVisits array whose index matches with that we have found delete that element, still no change in user collection
+      await prisma.user.update({
+        where:{email},
+        data:{
+          bookVisits:user.bookVisits    //update it's bookVisits array with the updated instance of the bookVisits array
+        }  
+      })
+      res.send("Booking cancelled successfully")
+    }
+    
+
+  }
+  catch(error){
+    throw new Error(error.messag )
+  }
+})
