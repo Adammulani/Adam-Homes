@@ -24,6 +24,9 @@ a {
 .paddings {
   padding: 1.5rem;
 }
+.wrapper{
+  background-color: white;
+}
 
 .innerWidth {
   width: 100%;

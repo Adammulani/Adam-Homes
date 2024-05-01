@@ -5,6 +5,7 @@ import "./Residencies.css"
 import data from '../../utils/slider.json'
 import { sliderSettings } from '../../utils/common'
 import { LuArrowLeftCircle,LuArrowRightCircle  } from "react-icons/lu";
+import { PropertyCard } from '../PropertyCard/PropertyCard'
 
 export const Residencies = () => {
   return (
@@ -18,17 +19,7 @@ export const Residencies = () => {
             <SliderButtons/>
           {data.map((card, i) => (
             <SwiperSlide key={i}>
-              <div className="flexColStart r-card">
-                <img src={card.image} alt="home" />
-
-                <span className="secondaryText r-price">
-                  <span style={{ color: "green" }}>$</span>
-                  <span>{card.price}</span>
-                </span>
-
-                <span className='primaryText'>{card.name}</span>
-                <span className='secondaryText'>{card.detail}</span>
-              </div>
+                <PropertyCard card={card}/>
             </SwiperSlide>
           ))}
         </Swiper>

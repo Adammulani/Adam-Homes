@@ -14,7 +14,6 @@ export const Website = () => {
     <div className="App">
       <div>
         <div className="white-gradient"/>
-      <Header/>
      <Hero/>
       </div>
       <Companies/>
@@ -22,7 +21,7 @@ export const Website = () => {
       <Values/>
       <Contact/>
       <GetStarted/>
-      <Footer/>
+      
      
     </div>
   )
