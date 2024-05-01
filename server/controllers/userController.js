@@ -119,3 +119,41 @@ export const cancleBooking=asyncHandler(async(req,res)=>{
     throw new Error(error.messag )
   }
 })
+
+//function to add a residency in a favourite list of a user
+export const toFav=asyncHandler(async(req,res)=>{
+  const {email}=req.body;
+  const {rid}=req.params;
+
+  try{
+       const user=await prisma.user.findUnique({
+        where:{email}
+       })
+
+       if(user.favResidenciesID.includes(rid)){
+        const updateUser=await prisma.user.update({
+          where:{email},
+          data:{
+            favResidenciesID:{
+              set:user.favResidenciesID.filter((id)=>id!==rid)
+            }
+          }
+
+        })
+        res.send({message:"Removed from favourites",user:updateUser})
+       }
+       else{
+        const updateUser=await prisma.user.update({
+           where:{email},
+           data:{
+             favResidenciesID:{
+              push:rid
+             }
+           }
+        })
+        res.send({message:"updated favourites",user:updateUser})
+       }
+  }catch(error){
+    throw new Error(error.message);
+  }
+})
