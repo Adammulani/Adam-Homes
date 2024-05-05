@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { useQuery } from 'react-query'
+import { useMutation, useQuery } from 'react-query'
 import {useLocation} from 'react-router-dom'
-import { getProperty } from '../../utils/api';
+import { getProperty, removeBooking } from '../../utils/api';
 import {PuffLoader} from 'react-spinners'
 import { AiFillHeart, AiTwotoneCar } from 'react-icons/ai';
 import {FaShower} from "react-icons/fa"
@@ -15,6 +15,7 @@ import { BookingModal } from '../../components/BookingModal/BookingModal';
 import { useContext } from 'react';
 import UserDetailContext from '../../context/userDetailContext';
 import { Button } from '@mantine/core';
+import { toast } from 'react-toastify';
 
 
 
@@ -29,6 +30,17 @@ export const Property = () => {
     const {user}=useAuth0()
     
     const {userDetails: { token,bookings },setUserDetails } = useContext(UserDetailContext);
+
+    const {mutate:cancelBooking,isLoading:cancelling}=useMutation({
+          mutationFn:()=>removeBooking(id,user?.email,token),
+          onSuccess:()=>{
+            setUserDetails((prev)=>({
+              ...prev,
+              bookings:prev.bookings.filter((booking)=>booking?.id !==id)
+            }))
+            toast.success("Booking cancelled",{position:"bottom-right"});
+          }
+    })
   
     if(isLoading){
         return (
@@ -109,8 +121,10 @@ export const Property = () => {
             {
               bookings?.map((booking)=>booking.id).includes(id) ?
               (
+               
                 <>
-                 <Button variant="outline" w={"100%"} color='red'>
+                
+                 <Button variant="outline" w={"100%"} color='red' onClick={()=>cancelBooking()} disabled={cancelling}>
                   <span>
                     Cancle booking
                   </span>
