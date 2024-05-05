@@ -13,7 +13,7 @@ export const Layout = () => {
 
   const { mutate } = useMutation({
     mutationKey: [user?.email],
-    mutationFn: async (token) => await createUser(user?.email,token),
+    mutationFn: (token) => createUser(user?.email,token),
   });
 
   useEffect(() => {
