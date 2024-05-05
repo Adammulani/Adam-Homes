@@ -99,3 +99,22 @@ export const removeBooking = async (id, email, token) => {
     throw error;
   }
 };
+
+//toFav function
+export const toFav=async(id,email,token)=>{
+  try{
+
+   api.post( `/user/toFav/${id}`,
+    {
+      email,
+    },
+    {
+      headers:{
+        Authorization:`Bearer ${token}`,
+      },
+    })
+
+  }catch(err){
+    throw err;
+  }
+}

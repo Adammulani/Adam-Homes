@@ -16,6 +16,7 @@ import { useContext } from 'react';
 import UserDetailContext from '../../context/userDetailContext';
 import { Button } from '@mantine/core';
 import { toast } from 'react-toastify';
+import { Heart } from '../../components/Heart/Heart';
 
 
 
@@ -66,7 +67,7 @@ export const Property = () => {
       <div className="flexColStart paddings innerWidth property-container">
         {/*  Add to favourite button */}
         <div className="like">
-          <AiFillHeart size={24} color="white" />
+           <Heart id={id}/>
         </div>
 
         {/*image */}
