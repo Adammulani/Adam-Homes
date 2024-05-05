@@ -14,6 +14,9 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { BookingModal } from '../../components/BookingModal/BookingModal';
 import { useContext } from 'react';
 import UserDetailContext from '../../context/userDetailContext';
+import { Button } from '@mantine/core';
+
+
 
 export const Property = () => {
     const {pathname} =useLocation();
@@ -103,11 +106,28 @@ export const Property = () => {
             </div>
 
             {/*booking button */}
-            <button className="button" onClick={()=>{
-              validateLogin() && setModalOpened(true);
-            }}>
-              
-              Book your visit</button>
+            {
+              bookings?.map((booking)=>booking.id).includes(id) ?
+              (
+                <>
+                 <Button variant="outline" w={"100%"} color='red'>
+                  <span>
+                    Cancle booking
+                  </span>
+                </Button>
+                <span>
+                Your appointment for {bookings?.filter((booking)=>booking?.id===id)[0].date} is booked
+                </span>
+                </>
+               
+              ):
+              (  <button className="button" onClick={()=>{
+                validateLogin() && setModalOpened(true);
+              }}>
+                
+                Book your visit</button>)
+            }
+          
 
               <BookingModal
                 opened={modalOpened}
