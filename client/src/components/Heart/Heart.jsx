@@ -14,6 +14,10 @@ export const Heart = ({id}) => {
 
     const{userDetails:{favourites,token},setUserDetails}=useContext(UserDetailContext);
 
+    useEffect(()=>{
+        setHeartColor(()=>checkFavourites(id,favourites))
+    },[favourites])
+
     const {mutate}=useMutation({
         mutationFn:()=>toFav(id,user?.email,token),
         onSuccess:()=>{
@@ -26,9 +30,7 @@ export const Heart = ({id}) => {
         }
     })
 
-    useEffect(()=>{
-        setHeartColor(()=>checkFavourites(id,favourites))
-    },[favourites])
+   
 
     const handleLike=()=>{
         if(validateLogin())

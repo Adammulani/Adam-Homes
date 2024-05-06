@@ -19,7 +19,7 @@ export const sliderSettings={
 
 //add or remove to or from favourites
 export const updateFavourites=(id,favourites)=>{
-    if(favourites.includes(id)){
+    if(favourites?.includes(id)){
         return favourites.filter((resId)=>resId!==id)
     }
     else{
@@ -28,5 +28,5 @@ export const updateFavourites=(id,favourites)=>{
 }
 
 export const checkFavourites=(id,favourites)=>{
-    return favourites.includes(id)? "#fa3e5f" : "white";
+    return (favourites?.includes(id))? "#fa3e5f" : "white";
 }
