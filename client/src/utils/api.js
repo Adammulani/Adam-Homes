@@ -143,3 +143,30 @@ export const getAllFav=async (email,token)=>{
 
   }
 }
+
+
+//fetch all bookings of user from db
+export const getAllBookings=async(email,token)=>{
+
+  if(!token) return
+
+  try{
+    const res=await api.post(
+      `/user/allBookings`,
+      {
+        email,
+      },
+      {
+        headers:{
+          Authorization:`Bearer ${token}`,
+        }
+      },
+    )
+   
+    return res.data["bookVisits"];
+
+  }catch(error){
+    toast.error("Error while fetching bookings")
+    throw error
+  }
+}
