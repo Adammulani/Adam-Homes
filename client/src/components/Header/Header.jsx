@@ -6,9 +6,21 @@ import { Link, NavLink } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import ProfileMenu from '../ProfileMenu/ProfileMenu.jsx';
 import { MantineProvider } from '@mantine/core';
+import { AddPropertyModal } from '../AddPropertyModal/AddPropertyModal.jsx';
+import { useAuthCheck } from '../hooks/useAuthCheck.jsx';
+
 const Header = () => {
   const [menuOpened,setMenuOpened]=useState(false);
   const {loginWithRedirect,isAuthenticated,user,logout}=useAuth0()
+  const [modalOpened,setModalOpened]=useState(false);
+  const {validateLogin}=useAuthCheck()
+
+
+  const handleAddPropertyClick=()=>{
+      if(validateLogin()){
+        setModalOpened(true)
+      }
+  }
 
   const getMenuStyles=(menuOpened)=>{
     if(document.documentElement.clientWidth <=800){
@@ -31,6 +43,12 @@ const Header = () => {
             <NavLink to="/properties">Properties</NavLink>
             <a href="mailto:aadammulani12@gmail.com">Contact</a>
 
+            {/* Add property*/}
+            <div onClick={handleAddPropertyClick}> Add property</div>
+            <AddPropertyModal
+            opened={modalOpened}
+            setOpened={setModalOpened}/>
+
             {/* login button */}
             {
               !isAuthenticated?
@@ -38,18 +56,9 @@ const Header = () => {
                 Login
               </button> ):
               (
-                /*<MantineProvider>
-                    <ProfileMenu user={user} logout={logout}/>
-                </MantineProvider>
-             */
+                
                <ProfileMenu user={user} logout={logout}/>
-                //<div>User Profile</div>
-               /* <button className="button" onClick={()=>{
-                  localStorage.clear();
-                  logout();
-                }}>
-                  Logout
-                </button>*/
+                
               )
             }
           </div>
