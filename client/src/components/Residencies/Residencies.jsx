@@ -6,7 +6,7 @@ import "./Residencies.css"
 import { sliderSettings } from '../../utils/common'
 import { LuArrowLeftCircle,LuArrowRightCircle  } from "react-icons/lu";
 import { PropertyCard } from '../PropertyCard/PropertyCard'
-import { useProperties } from '../hooks/useProperties'
+import  useProperties  from '../hooks/useProperties'
 import { PuffLoader } from 'react-spinners'
 
 export const Residencies = () => {

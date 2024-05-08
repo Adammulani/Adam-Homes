@@ -3,7 +3,7 @@ import { useQuery } from 'react-query'
 import { getAllProperties } from '../../utils/api.js';
 
 
-export const useProperties = () => {
+ const useProperties = () => {
 
   const {data,isLoading,isError,refetch}=useQuery(
       "allProperties",   // this is the name/key
@@ -18,3 +18,5 @@ export const useProperties = () => {
     refetch,
   };
 }
+
+export default useProperties;

@@ -3,10 +3,13 @@ import React, { useState } from 'react'
 import { AddLocation } from '../AddLoaction/AddLocation';
 import { useAuth0 } from '@auth0/auth0-react';
 import { UploadImage } from '../UploadImage/UploadImage';
+import { BasicDetails } from '../BasicDetails/BasicDetails';
+import { Facilities } from '../Facilities/Facilities';
 
 export const AddPropertyModal = ({opened,setOpened}) => {
     const [active,setActive]=useState(0);
-    const {user}=useAuth0()
+    const {user}=useAuth0();
+    
 
     const [propertyDetails, setPropertyDetails] = useState({
       title: "",
@@ -24,6 +27,7 @@ export const AddPropertyModal = ({opened,setOpened}) => {
       userEmail: user?.email,
     });
 
+    
     const nextStep = () => {
       setActive((current) => (current < 4 ? current + 1 : current));
     };
@@ -52,7 +56,7 @@ export const AddPropertyModal = ({opened,setOpened}) => {
             setPropertyDetails={setPropertyDetails}
             />
           </Stepper.Step>
-          <Stepper.Step label="Second step" description="Verify email">
+          <Stepper.Step label="Image" description="Upload ">
             <UploadImage
             prevStep={prevStep}
             nextStep={nextStep}
@@ -60,9 +64,25 @@ export const AddPropertyModal = ({opened,setOpened}) => {
             setPropertyDetails={setPropertyDetails}
             />
           </Stepper.Step>
-          <Stepper.Step label="Final step" description="Get full access">
-            Step 3 content: Get full access
+          <Stepper.Step label="Basics" description="Details">
+          <BasicDetails
+            prevStep={prevStep}
+            nextStep={nextStep}
+            propertyDetails={propertyDetails}
+            setPropertyDetails={setPropertyDetails}
+            />
           </Stepper.Step>
+          
+          <Stepper.Step>
+            <Facilities
+            prevStep={prevStep}
+            propertyDetails={propertyDetails}
+            setPropertyDetails={setPropertyDetails}
+            setOpened={setOpened}
+            setActiveStep={setActive}
+            />
+          </Stepper.Step>
+
           <Stepper.Completed>
             Completed, click back button to get to previous step
           </Stepper.Completed>
