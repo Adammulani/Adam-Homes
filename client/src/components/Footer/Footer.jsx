@@ -7,7 +7,7 @@ export const Footer = () => {
       <div className="paddings innerWidth flexCenter f-container">
         {/*left side */}
         <div className="flexColStart f-left">
-          <img src="./logo.png" alt="" width={120} />
+          <img src="./logofooter.png" alt="" width={120} />
           <span className="secondaryText">
             Our mission is to help you find your dream home easily.
             <br />
