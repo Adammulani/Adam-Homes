@@ -3,6 +3,7 @@ import {Avatar, MantineProvider, Menu} from '@mantine/core'
 import { useNavigate } from 'react-router-dom'
 
 const ProfileMenu = ({user,logout}) => {
+
     const navigate=useNavigate()
   return (
     
@@ -12,7 +13,7 @@ const ProfileMenu = ({user,logout}) => {
             
         </Menu.Target>
         <Menu.Dropdown>
-            <Menu.Item>
+            <Menu.Item onClick={()=>navigate("./favourites", {replace:true})}>
                 Favourites
             </Menu.Item>
 
