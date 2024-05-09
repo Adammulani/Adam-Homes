@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Hero.css";
 import CountUp from "react-countup";
 import {motion} from 'framer-motion'
 import { SearchBar } from "../SearchBar/SearchBar";
+import { SearchBarHero } from "../SearchBarHero/SearchBarHero";
 export const Hero = () => {
+ 
   return (
     <section className="hero-wrapper">
       <div className="paddings innerWidth flexCenter hero-container">
@@ -31,7 +33,7 @@ export const Hero = () => {
             </span>
           </div>
           
-          <SearchBar/>
+          <SearchBarHero />
 
           <div className="flexCenter stats">
             <div className="flexColCenter stat">
