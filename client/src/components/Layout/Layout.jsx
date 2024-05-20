@@ -14,7 +14,7 @@ export const Layout = () => {
   useFavourites()
   useBookings()
   
-  const { isAuthenticated, user, getAccessTokenSilently } = useAuth0();
+  const { isAuthenticated, user, getAccessTokenSilently,getAccessTokenWithPopup } = useAuth0();
   const { setUserDetails } = useContext(UserDetailContext);
 
   const { mutate } = useMutation({
@@ -23,12 +23,30 @@ export const Layout = () => {
   });
 
   useEffect(() => {
+
+    const checkPopupPermission = () => {
+      if (window && window.document && window.document.createElement) {
+        const popup = window.open('', '', 'width=100,height=100');
+        if (!popup || popup.closed || typeof popup.closed === 'undefined') {
+          // Popup blocked
+          window.alert("To access the website, please enable pop-ups. This is crucial for the Auth0 authentication process. Failure to allow pop-ups will restrict your access to the website's features since JWT check is assigned to each route.");
+        } else {
+          // Popup allowed
+          popup.close();
+        }
+      } else {
+        console.error('Popup permission check failed: Window or document object not found.');
+      }
+    };
+
+    
     const getTokenAndRegister = async () => {
 
-      const res = await getAccessTokenSilently({
+      const res = await getAccessTokenWithPopup({
         authorizationParams: {
           audience: "http://localhost:3001",
           scope: "openid profile email",
+          prompt:"none"
         },
       });
       localStorage.setItem("access_token", res);
@@ -38,7 +56,7 @@ export const Layout = () => {
 
   
       isAuthenticated && getTokenAndRegister();
-   
+      checkPopupPermission();
   }, [isAuthenticated]);
   return (
     <>

@@ -15,26 +15,29 @@ export const Hero = () => {
           <div className="hero-title">
             <div className="orange-circle" />
             <motion.h1
-            initial={{y:"2rem",opacity:0}}
-            animate={{y:0,opacity:1}}
-            transition={{
-              duration:2,
-              type:"spring"
-            }}
+              initial={{ y: "2rem", opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{
+                duration: 2,
+                type: "spring",
+              }}
             >
               Discover <br /> Your Dream Home <br />
               with Us
             </motion.h1>
           </div>
           <div className="flexColStart hero-des wrap-it">
-            <span className="secondaryText">Finding your dream home becomes effortless</span>
+            <span className="secondaryText">
+              Finding your dream home becomes effortless
+            </span>
             <span className="secondaryText">
               with expert guidance, and a seamless browsing experience
             </span>
           </div>
-          
-          <SearchBarHero />
-
+          <div className="search-bar-container">
+            <SearchBarHero />
+          </div>
+         
           <div className="flexCenter stats">
             <div className="flexColCenter stat">
               <span>
@@ -63,14 +66,15 @@ export const Hero = () => {
         </div>
         {/* right section */}
         <div className="flexCenter hero-right">
-          <motion.div 
-          initial={{x:"7rem",opacity:0}}
-          animate={{x:0,opacity:1}}
-          transition={{
-            duration:2,
-            type:"spring"
-          }}
-          className="image-container">
+          <motion.div
+            initial={{ x: "7rem", opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{
+              duration: 2,
+              type: "spring",
+            }}
+            className="image-container"
+          >
             <img src="./hero-image.jpg" alt="" />
           </motion.div>
         </div>
