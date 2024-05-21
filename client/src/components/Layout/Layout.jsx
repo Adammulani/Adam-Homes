@@ -29,7 +29,7 @@ export const Layout = () => {
         const popup = window.open('', '', 'width=100,height=100');
         if (!popup || popup.closed || typeof popup.closed === 'undefined') {
           // Popup blocked
-          window.alert("To access the website, please enable pop-ups. This is crucial for the Auth0 authentication process. Failure to allow pop-ups will restrict your access to the website's features since JWT check is assigned to each route.");
+          window.alert("You're seeing this message because you haven't enabled popups yet. To access the website, please enable pop-ups. This is crucial for the Auth0 authentication process. Failure to allow pop-ups will restrict your access to the website's features since JWT check is assigned to each route.");
         } else {
           // Popup allowed
           popup.close();

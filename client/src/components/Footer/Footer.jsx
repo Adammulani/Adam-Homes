@@ -19,10 +19,10 @@ export const Footer = () => {
           <span className="primaryText">Information</span>
           <span className="secondaryText">Maharashtra, India</span>
           <div className="flexCenter f-menu">
-            <span>Property</span>
+            {/* <span>Property</span>
             <span>Services</span>
             <span>Product</span>
-            <span>About Us</span>
+            <span>About Us</span> */}
           </div>
         </div>
       </div>
