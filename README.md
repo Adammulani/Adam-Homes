@@ -39,7 +39,7 @@ Adam Homes is a real-estate project where you can browse properties with images,
 
 ### Clone the Repository
 
-```sh
+
 git clone https://github.com/Adammulani/Adam-Homes.git
 
 1. Navigate to the client directory and execute the following command to install frontend dependencies:
